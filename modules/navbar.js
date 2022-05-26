@@ -1,6 +1,6 @@
 const Navbar = ({ url }) => {
     return (
-        <div classNameName="main">
+        <div className="main">
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <img className="navbar-brand" href="#" src={url}  width="100" height="100"></img>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

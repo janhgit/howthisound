@@ -66,7 +66,7 @@ export default NextAuth({
   secret: process.env.JWT_SECRET,
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log(token,account,user, "JWT CALL!!!!!!!!!!!!!!!!!!!!!!!")
+      // console.log(token,account,user, "JWT CALL!!!!!!!!!!!!!!!!!!!!!!!")
       if (account && user) {
         return {
           ...token,
