@@ -1,7 +1,7 @@
+import axios from "axios";
 import NextAuth from "next-auth"
-import DiscordProvider from "next-auth/providers/discord"
 import SpotifyProvider from "next-auth/providers/spotify"
-
+import md5 from "md5";
 const SpotifyWebApi = require("spotify-web-api-node")
 const LastfmAPI = require('lastfmapi');
 var scopes = ['user-read-private', 'user-read-email', 'user-read-currently-playing', 'user-read-recently-played', "user-top-read", "user-library-read"]
@@ -45,8 +45,17 @@ async function refreshAccessToken(token) {
     }
   }
 }
-
-console.log(LfmauthUrl)
+const makeTokenRequest = async (ctx) => {
+  const api_sig_query = `api_key${process.env.LASTFM_API_KEY}methodauth.getSessiontoken${ctx.checks.state}${process.env.LASTFM_API_SECRET}`
+  const apI_sig = md5(api_sig_query); 
+  console.log(api_sig_query)
+  const respone = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=auth.getSession&api_key=${process.env.LASTFM_API_KEY}&token=${ctx.checks.state}&format=json&api_sig=${apI_sig}`)
+    console.log(await respone)
+  
+  // .then(async r => { await console.log(r.data)})
+  // .catch(err => console.error(err.data))
+}
+// console.log(LfmauthUrl)
 export default NextAuth({
 
   providers: [
@@ -55,18 +64,27 @@ export default NextAuth({
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       authorization: SpotiyAuthUrl
     }),
-    {
-      id: "lastfm",
-      name:"Last.fm",
-      authorization: LfmauthUrl,
-      type: 'oauth',
-      clientId: process.env.LASTFM_API_KEY,
-    }
+    // {
+    //   id: "lastfm",
+    //   name:"Last.fm",
+    //   authorization: LfmauthUrl,
+    //   type: 'oauth',
+    //   version: "2.0",
+    //   clientId: process.env.LASTFM_API_KEY,
+    //   // checks: ["token"],
+    //   token: {
+    //     // url: "http://ws.audioscrobbler.com/2.0",
+    //     async request(context) {
+    //       console.log(context.params)
+    //       // await makeTokenRequest(context)
+    //     }
+    //   }
+      
+    // }
   ],
   secret: process.env.JWT_SECRET,
   callbacks: {
     async jwt({ token, account, user }) {
-      // console.log(token,account,user, "JWT CALL!!!!!!!!!!!!!!!!!!!!!!!")
       if (account && user) {
         return {
           ...token,

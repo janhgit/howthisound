@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Navbar from "../modules/navbar"
 import SpotifyWebApi from "spotify-web-api-node"
 import Router from 'next/router'
-
+import { useEffect } from "react";
+import spotifylogo from "../images/Spotify_Logo_RGB_Green.png"
 export async function getServerSideProps(ctx) {
 
 
@@ -34,7 +35,8 @@ export async function getServerSideProps(ctx) {
     console.log(await ret)
     return {
       props: {
-        current: await ret
+        current: await ret,
+
       },
     }
 
@@ -50,18 +52,25 @@ export async function getServerSideProps(ctx) {
 }
 
 const redirect = async (album, artist) => {
-  console.log(artist)
-  Router.push(`/currentalbum?name=${album}&artist=${artist}`)
+  Router.push(`/currentalbum`)
 }
-
+const redWhat = () => {
+  Router.push("/about")
+}
 
 export default function Component({ current }) {
 
-  const { data: session } = useSession()
-  if (session) {
-    const myLoader = ({ src, width, quality }) => {
-      return session.user.image || 75
+  const { data: session } = useSession();
+  // console.log(session)
+
+
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signIn(); // Force sign in to hopefully resolve error
     }
+  }, [session]);
+
+  if (session) {
 
     const album = encodeURIComponent(current.albumName)
     const artist = encodeURIComponent(current.artistName)
@@ -72,26 +81,29 @@ export default function Component({ current }) {
         <div className={styles.wrapper}>
           <div className={styles.main}>
 
-            <h1>Welcome!</h1>
+            <h1 className={styles.welcome}>Welcome!</h1>
             Signed in as {session.user.name} <br />
             <div>Now Playing {current.trackName} by {current.artistName}</div>
-            <img src={current.albumCover}></img>
+            {/* <img src={current.albumCover}></img> */}
             <button onClick={() => redirect(album, encodeURIComponent(current.artistName))}>Review This Album!</button>
-            {/* <Image
-            loader={myLoader}
-            src={session.user.image}
-            alt="Picture of the author"
-            width={100}
-            height={100}
-          /> */}
+
+            <br />
+            <br />
+            <br />
             <center>
               <button className={styles.button56} onClick={() => signOut()} role="button">Sign out </button>
             </center>
-
-
+            <div className={styles.logo}>
+              <Image
+                src={spotifylogo}
+                alt="Spotify Logo"
+              // 2
+              />
+            </div>
+            <div>this application is using spotify data. Read more <a href="/policy/tos">here</a></div>
 
           </div>
-          <div>THIS APPLICATION IS USING SPOTIFY DATA!</div>
+
         </div>
       </>
     )
@@ -99,10 +111,24 @@ export default function Component({ current }) {
   return (
     <>
       <div className={styles.main}>
-        <h1>Welcome to MusicBox!</h1>
+        <h1>Welcome to ThisSoundGood?</h1>
         Not signed in <br />
         <center>
-          <button className={styles.button56} onClick={() => signIn()} role="button">Sign In </button>
+          <br></br>
+          <button className={styles.button56} onClick={() => signIn("lastfm")} role="button">Sign In </button>
+
+          <br></br>
+          <br></br>
+          <button className={styles.button56} onClick={() => redWhat()} role="button">What is this?</button>
+          <div className={styles.logo}>
+              <Image
+                src={spotifylogo}
+                alt="Spotify Logo"
+              // 2
+              />
+            </div>
+            <div>this application is using spotify data. Read more <a href="/policy/tos">here</a></div>
+
         </center>
       </div>
     </>

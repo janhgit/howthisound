@@ -1,8 +1,18 @@
-const search = () =>{
-    return(
-        <div>
+import syles from "../styles/searchsite.module.css"
 
-            search site
+const search = () => {
+
+    return (
+        <div >
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" />
+                    <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
     )
 

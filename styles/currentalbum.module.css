@@ -1,3 +1,9 @@
 .AlbumArtistInfo{
     text-align: center;
 }
+
+.trackDisplay{
+    display: flex;
+    text-align: center;
+    margin: 25px;
+}

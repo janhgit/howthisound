@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-
-.wrapper{
- 
-}
 .main{
   font-family: 'Poppins', sans-serif;
     text-align: center;
@@ -13,7 +9,9 @@
     transform: translate(-50%, -50%);
 
 }
-
+.welcome{
+  text-shadow: 4px 4px 3px #544AA4;
+}
 
 
 /* CSS */
@@ -73,4 +71,17 @@
   .button56 {
     padding: 0 40px;
   }
+}
+
+.logo{
+  -moz-transform: scale(0.6);
+-webkit-transform: scale(0.6);
+-o-transform: scale(0.6);
+-ms-transform: scale(0.6);
+transform: scale(0.2);
+
+}
+
+.TrackWrapper{
+  margin-top: 40rem;
 }
