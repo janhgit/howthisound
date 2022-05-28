@@ -36,9 +36,9 @@ export default function BasicModal() {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <form action="/review" method="post">
-                            <label for="first">First name:</label>
+                            <label htmlFor="first">First name:</label>
                             <input type="text" id="first" name="first" />
-                            <label for="last">Last name:</label>
+                            <label htmlFor="last">Last name:</label>
                             <input type="text" id="last" name="last" />
                             <button type="submit">Submit</button>
                         </form>

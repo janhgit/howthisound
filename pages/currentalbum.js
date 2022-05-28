@@ -12,11 +12,11 @@ import dbConnect from "../util/dbConnect";
 import Router from "next/router";
 import spotifyicon from "../images/Spotify_Icon_RGB_Green.png"
 import spotifylogo from "../images/Spotify_Logo_RGB_Green.png"
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useState } from "react";
 
 
 
@@ -69,7 +69,7 @@ export async function getServerSideProps(ctx) {
 
 }
 
-const currentAlbum = ({ info, user, albumInfo }) => {
+const CurrentAlbum = ({ info, user, albumInfo }) => {
     const style = {
         position: 'absolute',
         top: '50%',
@@ -81,14 +81,13 @@ const currentAlbum = ({ info, user, albumInfo }) => {
         boxShadow: 24,
         p: 4,
     };
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const redirect = (pushTo) => {
         Router.push(pushTo)
     }
-    const { data: session } = useSession()
     const width = 5400
     const hight = 5400
     console.log()
@@ -150,11 +149,11 @@ const currentAlbum = ({ info, user, albumInfo }) => {
                                                     half={true}
                                                     edit={true}
                                                     color2={'#ffd700'} />
-                                                <label for="first">Write A Review</label>
+                                                <label htmlFor="first">Write A Review</label>
                                                 <input type="text" id="Review" name="Review" />
-                                                <label for="last">Favourite Song</label>
+                                                <label htmlFor="last">Favourite Song</label>
                                                 <input type="text" id="favTrack" name="last" />
-                                                <label for="last">Least Favourite Song</label>
+                                                <label htmlFor="last">Least Favourite Song</label>
                                                 <input type="text" id="LeastFavTrack" name="last" />
                                                 <button type="submit" className={buttons.button56}>Submit</button>
                                             </form>
@@ -185,4 +184,4 @@ const currentAlbum = ({ info, user, albumInfo }) => {
 
 
 
-export default currentAlbum;
+export default CurrentAlbum;
