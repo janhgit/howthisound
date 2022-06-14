@@ -75,12 +75,14 @@ const CurrentAlbum = ({ info, user, albumInfo }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 700,
+        height: 700,
         bgcolor: 'background.paper',
         border: '2px solid #000',
-        boxShadow: 24,
+        boxShadow: 50,
         p: 4,
     };
+    let rating;
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -92,6 +94,7 @@ const CurrentAlbum = ({ info, user, albumInfo }) => {
     const hight = 5400
     console.log()
     const ratingChanged = (newRating) => {
+        rating = newRating
         alert(`You Successfully rated this Album ${newRating} / 5`)
     }
     // const albumTracks = albumInfo.tracks.track
@@ -109,7 +112,7 @@ const CurrentAlbum = ({ info, user, albumInfo }) => {
             <div className="card mb-3 position-absolute top-50 start-50 translate-middle" >
                 <div className="row g-0">
                     <div className="col-md-4">
-                        <img src={info.album.images[0].url} className="img-fluid rounded-start" alt="..."></img>
+                        <img src={info.album.images[0].url} className="img-fluid card-img-left" alt="..."></img>
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
@@ -125,11 +128,11 @@ const CurrentAlbum = ({ info, user, albumInfo }) => {
                                     size={60}
                                     onChange={ratingChanged}
                                     half={true}
-                                    value={2}
-                                    edit={true}
+                                    value={4.5}
+                                    edit={false}
                                     color2={'#ffd700'} />
                                 <small className="text-muted" >Public Votes Get Refreshed Every 24H</small>
-                                <Button onClick={handleOpen} className={buttons.button56}>Open modal</Button>
+                                <Button onClick={handleOpen} className={buttons.button56}>Review This Album</Button>
                                 <Modal
                                     open={open}
                                     onClose={handleClose}
@@ -141,20 +144,17 @@ const CurrentAlbum = ({ info, user, albumInfo }) => {
                                             Review {info.album.name} by {info.artists[0].name}
                                         </Typography>
                                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                            <form action="/review" method="post">
+                                            <form action="/api/review/newReview" method="post">
+                                                <label for="first">Review:</label>
+                                                <textarea type="text" id="FIRSTNAME" name="reviewtext" />
                                                 <ReactStars
                                                     count={5}
                                                     size={60}
-                                                    // onChange={ratingChanged}
+                                                    onChange={ratingChanged}
                                                     half={true}
-                                                    edit={true}
+                                                    value={4.5}
                                                     color2={'#ffd700'} />
-                                                <label htmlFor="first">Write A Review</label>
-                                                <input type="text" id="Review" name="Review" />
-                                                <label htmlFor="last">Favourite Song</label>
-                                                <input type="text" id="favTrack" name="last" />
-                                                <label htmlFor="last">Least Favourite Song</label>
-                                                <input type="text" id="LeastFavTrack" name="last" />
+                                                <br />
                                                 <button type="submit" className={buttons.button56}>Submit</button>
                                             </form>
                                         </Typography>
