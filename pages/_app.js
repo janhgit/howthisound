@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react"
 import 'bootstrap/dist/css/bootstrap.css';
-
+import Navbar from "../modules/navbar"
 import { useEffect } from "react";
 
 

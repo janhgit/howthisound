@@ -19,12 +19,6 @@ const Navbar = ({ url }) => {
               <i className="fas fa-bars"></i>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <form className="me-3">
-                <div className="form-white input-group" style={{width: 250 + "px"}}>
-                  <input type="search" className="form-control rounded" placeholder="Search or jump to... ( / )"
-                    aria-label="Search" aria-describedby="search-addon" />
-                </div>
-              </form>
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <a className="nav-link" href="/">Home</a>
@@ -33,7 +27,10 @@ const Navbar = ({ url }) => {
                   <a className="nav-link" href="/currentalbum">Current Album</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Friends</a>
+                  <a className="nav-link" href="/friends">Friends</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/search">Search</a>
                 </li>
               </ul>
             </div>
